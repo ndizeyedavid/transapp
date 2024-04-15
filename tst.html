@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NicEdit Example</title>
+  <!-- Include NicEdit CSS -->
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/nicedit@0.9r24/nicEdit.css"> -->
+</head>
+<body>
+
+<h1>NicEdit Example</h1>
+
+<!-- Create a textarea for the editor -->
+<p>Characters: <span id="charCountMessage">0/0</span></p>
+<textarea id="myTextarea" style="width: 100%; height: 300px;"></textarea>
+<textarea id="msg" style="width: 100%; height: 300px;"></textarea>
+<br>
+<button onclick="count()">Test</button>
+<!-- Include NicEdit JavaScript -->
+<script src="assets/js/nicEdit.js"></script>
+<script>
+
+  bkLib.onDomLoaded (function() {
+    var editor = nicEditors.findEditor('mytextarea');
+  })   
+
+  // Initialize NicEdit on the textarea
+  new nicEditor().panelInstance('myTextarea');
+</script>
+
+<script>
+  var txt = document.querySelector(".nicEditSmaller-main");
+  var charCountMessage = document.getElementById('charCountMessage');
+  const maxChars = 30;
+
+  function count(){
+    document.getElementById("msg").value = txt.innerHTML;
+    const charCount = txt.innerText.length;
+
+    charCountMessage.textContent = `${charCount}/${maxChars}`;
+
+    if (charCount >= maxChars){
+      alert("The limit has reached");
+      txt.innerText = txt.innerText.substring(0, maxChars);
+
+      charCountMessage.textContent = `${maxChars}/${maxChars}`;
+
+    }
+  }
+
+  txt.addEventListener("keyup", count);
+  count();
+</script>
+</body>
+</html>
